@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_dark">#0D0F14</color>
+    <color name="bg_card">#161A23</color>
+    <color name="accent">#00E5C8</color>
+    <color name="accent_pressed">#009E8C</color>
+    <color name="text_primary">#E8EAF0</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="divider">#1E2330</color>
+    <color name="btn_idle">#1A2035</color>
+    <color name="btn_pressed">#00E5C8</color>
+    <color name="dot_green">#22C55E</color>
+    <color name="dot_amber">#F59E0B</color>
+    <color name="dot_gray">#4B5563</color>
+</resources>

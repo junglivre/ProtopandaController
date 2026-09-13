@@ -1,0 +1,28 @@
+# Gradle and Android build output
+.gradle/
+.kotlin/
+build/
+**/build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Local Android SDK and signing material
+local.properties
+keystore.properties
+*.jks
+*.keystore
+
+# Android Studio and IntelliJ local state
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Release artifacts
+*.apk
+*.aab

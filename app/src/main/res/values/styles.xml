@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.ProtoPaw" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorPrimaryVariant">@color/accent_pressed</item>
+        <item name="colorOnPrimary">@color/bg_dark</item>
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:statusBarColor">@color/bg_card</item>
+        <item name="android:navigationBarColor">@color/bg_dark</item>
+    </style>
+
+    <style name="PawButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/btn_text_selector</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:backgroundTint">@color/btn_bg_selector</item>
+        <item name="strokeColor">@color/btn_stroke_selector</item>
+        <item name="strokeWidth">1.5dp</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.Protopanda.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>

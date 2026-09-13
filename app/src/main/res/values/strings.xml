@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Protopanda Controller</string>
+    <string name="settings_title">Settings</string>
+    <string name="identity_title">BLE identity</string>
+    <string name="identity_summary">Changing these values restarts the BLE peripheral and disconnects any active receiver.</string>
+    <string name="service_uuid">Service UUID</string>
+    <string name="read_write_uuid">Read/write characteristic UUID</string>
+    <string name="notify_uuid">Notification characteristic UUID</string>
+    <string name="save_and_restart">Save and restart BLE</string>
+    <string name="restore_defaults">Restore defaults</string>
+    <string name="about_title">About</string>
+    <string name="about_summary">Protopanda Controller is an open-source BLE peripheral controller for Android.</string>
+    <string name="open_repository">Open GitHub repository</string>
+    <string name="credits_title">Credits</string>
+    <string name="credit_gooddu">First version of the app</string>
+    <string name="credit_mockthebear">Creator of Protopanda and app improvements</string>
+    <string name="credit_junglivre">App improvements and Google Play release</string>
+    <string name="error_uuid">Enter a valid UUID.</string>
+    <string name="error_distinct_uuids">Each UUID must be different.</string>
+    <string name="settings_saved">Settings saved. The BLE peripheral is restarting.</string>
+    <string name="open_settings">Open settings</string>
+    <string name="close_app">Close app</string>
+    <string name="version_format">Version %1$s</string>
+</resources>
