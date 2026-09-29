@@ -10,8 +10,8 @@ android {
         applicationId "gay.protopanda.controller"
         minSdk 21
         targetSdk 37
-        versionCode 1
-        versionName (project.findProperty("versionName") ?: "0.1.0")
+        versionCode 2
+        versionName (project.findProperty("versionName") ?: "1.0.0")
     }
 
     def releaseVersionCode = project.findProperty("versionCode")?.toInteger()

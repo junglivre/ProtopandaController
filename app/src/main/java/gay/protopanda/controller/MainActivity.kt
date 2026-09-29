@@ -15,13 +15,17 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
+import android.os.PowerManager
+import android.provider.Settings
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -34,6 +38,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     companion object {
         private const val POST_NOTIFICATIONS_PERMISSION = "android.permission.POST_NOTIFICATIONS"
+        private const val PREFS_NAME = "protopanda_prefs"
+        private const val KEY_BATTERY_OPT_REQUESTED = "battery_opt_requested"
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -58,6 +64,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         } else {
             finishAndRemoveTask()
         }
+    }
+
+    private val batteryOptLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        // First-time request only: whatever the outcome, don't warn here. If it's
+        // still not exempted, the warning is shown on the next app launch instead
+        // (see requestBatteryOptimizationExemption()), by which point the OS has
+        // settled the whitelist change (some ROMs redirect to their own battery
+        // screen and apply it asynchronously).
+        checkBluetoothAndStart()
     }
 
 
@@ -114,7 +131,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             .filterKeys { it != POST_NOTIFICATIONS_PERMISSION }
             .values
             .all { it }
-        if (btGranted) checkBluetoothAndStart()
+        if (btGranted) requestBatteryOptimizationExemption()
         else { binding.tvStatus.text = "Bluetooth permissions denied"; }
     }
 
@@ -303,8 +320,51 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (!has(Manifest.permission.POST_NOTIFICATIONS)) needed += Manifest.permission.POST_NOTIFICATIONS
         }
-        if (needed.isEmpty()) checkBluetoothAndStart()
+        if (needed.isEmpty()) requestBatteryOptimizationExemption()
         else permLauncher.launch(needed.toTypedArray())
+    }
+
+    private fun isIgnoringBatteryOptimizations(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        return powerManager.isIgnoringBatteryOptimizations(packageName)
+    }
+
+    private fun requestBatteryOptimizationExemption() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || isIgnoringBatteryOptimizations()) {
+            checkBluetoothAndStart()
+            return
+        }
+        if (hasRequestedBatteryOptimizationBefore()) {
+            // Already asked once: don't keep redirecting to system settings on every
+            // launch, just warn and continue.
+            showBatteryOptimizationDeniedDialog()
+            checkBluetoothAndStart()
+            return
+        }
+        markBatteryOptimizationRequested()
+        val intent = Intent(
+            Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+            Uri.parse("package:$packageName")
+        )
+        batteryOptLauncher.launch(intent)
+    }
+
+    private fun hasRequestedBatteryOptimizationBefore(): Boolean =
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getBoolean(KEY_BATTERY_OPT_REQUESTED, false)
+
+    private fun markBatteryOptimizationRequested() {
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit()
+            .putBoolean(KEY_BATTERY_OPT_REQUESTED, true)
+            .apply()
+    }
+
+    private fun showBatteryOptimizationDeniedDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.battery_optimization_denied_title)
+            .setMessage(R.string.battery_optimization_denied_message)
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
     }
 
     private fun checkBluetoothAndStart() {

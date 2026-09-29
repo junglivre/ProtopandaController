@@ -21,5 +21,7 @@
     <string name="settings_saved">Settings saved. The BLE peripheral is restarting.</string>
     <string name="open_settings">Open settings</string>
     <string name="close_app">Close app</string>
-    <string name="version_format">Version %1$s</string>
+    <string name="battery_optimization_denied_title">Battery optimization is still on</string>
+    <string name="battery_optimization_denied_message">Protopanda Controller was not exempted from battery optimization for this app. Some phones may disconnect the Bluetooth peripheral or stop motion updates while the screen is off or the app is in the background. You can grant the exemption later from the app\'s battery settings.</string>
+    <string name="version_format">v%1$s</string>
 </resources>

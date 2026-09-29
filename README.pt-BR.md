@@ -1,10 +1,10 @@
 # Protopanda Controller
 
 <p align="center">
-  <img src="https://github.com/mockthebear/proto-panda/raw/main/doc/logoprotopanda.png" alt="Logo do Protopanda" width="330">
+  <img src="https://github.com/mockthebear/proto-panda/raw/main/doc/logoprotopanda.png" alt="Logo do Protopanda">
 </p>
 
-[English](README.md) | Português
+[🇺🇸 English](README.md) | **🇧🇷 Português**
 
 Controlador Android que funciona como um periférico Bluetooth Low Energy (BLE)
 para plataformas Protopanda. Ele envia os dados de movimento do telefone e

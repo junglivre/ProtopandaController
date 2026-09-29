@@ -1,6 +1,6 @@
 Privacy Policy — Protopanda Controller
 
-Last updated: September 13, 2026
+Last updated: September 29, 2026
 
 Protopanda Controller is an open-source Android application designed to act as a Bluetooth Low Energy (BLE) controller for Protopanda platforms.
 
@@ -39,6 +39,8 @@ This communication occurs directly between the Android device and the Protopanda
 4. Permissions
 
 Depending on the Android version, the application may request Bluetooth-related permissions required to operate as a BLE peripheral.
+
+The application may also ask the user to exempt it from the system's battery optimization for this app only. This request exists so the BLE peripheral service is not suspended by the operating system while the phone screen is off or the app is in the background. The user can deny this request or revoke it later from the device's battery settings; the application continues to work, but the connection may be less reliable in the background on some devices.
 
 These permissions are used exclusively to provide the Bluetooth functionality described in this Privacy Policy.
 
