@@ -71,6 +71,7 @@ O app não anuncia nem altera o nome Bluetooth do telefone.
 | UUID do serviço | `d4d31337-c4c1-c2c3-b4b3-b2b1a4a3a2a1` |
 | UUID leitura/escrita | `d4d3fafb-c4c1-c2c3-b4b3-b2b1a4a3a2a1` |
 | UUID notificações | `d4d3afaf-c4c1-c2c3-b4b3-b2b1a4a3a2a1` |
+| Característica de relógio (leitura opcional) | `d4d3c10c-c4c1-c2c3-b4b3-b2b1a4a3a2a1` |
 | Intervalo de notificação | 50 ms |
 
 O pacote tem 23 bytes: acelerômetro, giroscópio, placeholder de temperatura,

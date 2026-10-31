@@ -14,6 +14,9 @@ data class BleIdentity(
         private const val READ_WRITE_UUID = "read_write_uuid"
         private const val NOTIFY_UUID = "notify_uuid"
 
+        /** Optional receiver read characteristic: Unix epoch seconds + UTC offset minutes. */
+        val TIME_CHARACTERISTIC_UUID: UUID = UUID.fromString("d4d3c10c-c4c1-c2c3-b4b3-b2b1a4a3a2a1")
+
         val DEFAULT = BleIdentity(
             serviceUuid = UUID.fromString("d4d31337-c4c1-c2c3-b4b3-b2b1a4a3a2a1"),
             readWriteUuid = UUID.fromString("d4d3fafb-c4c1-c2c3-b4b3-b2b1a4a3a2a1"),

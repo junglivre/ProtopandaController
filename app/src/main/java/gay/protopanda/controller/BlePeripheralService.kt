@@ -304,6 +304,9 @@ class BlePeripheralService : Service() {
                         identity.notifyUuid -> {
                             gattServer?.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, 0, buildPacket())
                         }
+                        BleIdentity.TIME_CHARACTERISTIC_UUID -> {
+                            gattServer?.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, 0, buildCurrentTimePayload())
+                        }
                         else -> gattServer?.sendResponse(device, requestId, BluetoothGatt.GATT_FAILURE, 0, null)
                     }
                 } catch (e: SecurityException) {
@@ -406,6 +409,13 @@ class BlePeripheralService : Service() {
         service.addCharacteristic(notifChar)
         this.notifyChar = notifChar
 
+        val timeChar = BluetoothGattCharacteristic(
+            BleIdentity.TIME_CHARACTERISTIC_UUID,
+            BluetoothGattCharacteristic.PROPERTY_READ,
+            BluetoothGattCharacteristic.PERMISSION_READ
+        )
+        service.addCharacteristic(timeChar)
+
         try {
             val result = gattServer?.addService(service)
             Log.i(TAG, "addService returned: $result, waiting for onServiceAdded callback...")
@@ -424,6 +434,21 @@ class BlePeripheralService : Service() {
             notifyAdvertising(false, "GATT permission denied")
             updateNotification("Service start failed: permission denied")
         }
+    }
+
+    /**
+     * Protocol payload for the optional clock characteristic:
+     * uint32 Unix epoch seconds, then int16 UTC offset in minutes, both little-endian.
+     */
+    private fun buildCurrentTimePayload(): ByteArray {
+        val nowMillis = System.currentTimeMillis()
+        val epochSeconds = (nowMillis / 1000L).toInt()
+        val utcOffsetMinutes = java.util.TimeZone.getDefault().getOffset(nowMillis) / 60_000
+        return ByteBuffer.allocate(6)
+            .order(ByteOrder.LITTLE_ENDIAN)
+            .putInt(epochSeconds)
+            .putShort(utcOffsetMinutes.toShort())
+            .array()
     }
 
     private val advertiseCallback = object : AdvertiseCallback() {

@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.1.0] - 2026-10-31
+
+### Added
+
+- Optional read-only BLE GATT clock characteristic for ProtoPanda. It provides
+  Unix epoch seconds and the local UTC offset when the receiver reads it.
+
+### Changed
+
+- Bumped the Android app version to `1.1.0`.
+
 ## [1.0.0] - 2026-09-29
 
 ### Added

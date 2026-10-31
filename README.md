@@ -71,6 +71,7 @@ BLE peripheral. The app does not advertise or change the phone Bluetooth name.
 | Service UUID | `d4d31337-c4c1-c2c3-b4b3-b2b1a4a3a2a1` |
 | Read/write characteristic | `d4d3fafb-c4c1-c2c3-b4b3-b2b1a4a3a2a1` |
 | Notification characteristic | `d4d3afaf-c4c1-c2c3-b4b3-b2b1a4a3a2a1` |
+| Clock characteristic (optional read) | `d4d3c10c-c4c1-c2c3-b4b3-b2b1a4a3a2a1` |
 | Notification interval | 50 ms |
 
 The payload is 23 bytes: accelerometer, gyroscope, temperature placeholder,

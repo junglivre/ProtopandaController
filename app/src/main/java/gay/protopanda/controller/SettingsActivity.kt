@@ -49,7 +49,7 @@ class SettingsActivity : AppCompatActivity() {
         val serviceUuid = parseUuid(binding.etServiceUuid.text?.toString(), binding.tilServiceUuid) ?: return
         val readWriteUuid = parseUuid(binding.etReadWriteUuid.text?.toString(), binding.tilReadWriteUuid) ?: return
         val notifyUuid = parseUuid(binding.etNotifyUuid.text?.toString(), binding.tilNotifyUuid) ?: return
-        if (serviceUuid == readWriteUuid || serviceUuid == notifyUuid || readWriteUuid == notifyUuid) {
+        if (setOf(serviceUuid, readWriteUuid, notifyUuid, BleIdentity.TIME_CHARACTERISTIC_UUID).size != 4) {
             binding.tilNotifyUuid.error = getString(R.string.error_distinct_uuids)
             return
         }
